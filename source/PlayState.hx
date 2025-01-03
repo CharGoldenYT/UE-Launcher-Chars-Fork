@@ -138,7 +138,7 @@ class PlayState extends FlxState
 		downloadText.y = FlxG.height - (downloadText.height + 5);
 		add(downloadText);
 
-		versionText = new FlxText(0, 0, FlxG.width * 0.5, 'UE Launcher V${Constants.VERSION}', 15);
+		versionText = new FlxText(0, 0, FlxG.width * 0.5, 'UE Launcher v${Constants.VERSION}', 15);
 		versionText.borderStyle = OUTLINE;
 		versionText.borderColor = 0xFF000000;
 		versionText.borderSize = 3;
