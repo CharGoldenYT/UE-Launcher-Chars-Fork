@@ -27,8 +27,6 @@ class Prefs
 
 	/**
 	 * Keeps track of FlxG.sound.muted
-	 * 
-	 * NOT IMPLEMENTED
 	 */
 	public static var muteSound(default, set):Bool = false;
 
@@ -85,7 +83,6 @@ class Prefs
 		#else
 		set_versionsFolder('./versions/');
 		#end
-		FlxG.sound.playMusic(Paths.music('this_prevents_the_game_from_crashing'), 0);
 
 		isInitialized = true;
 		load();

@@ -1,6 +1,7 @@
 package;
 
 import FlxUIDropDownMenuCustom;
+import components.Constants;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.ui.FlxUISpriteButton;
@@ -53,13 +54,14 @@ class PlayState extends FlxState
 	var versionNumber:String = '';
 	var downloadText:FlxText;
 	public static var directoryText:FlxText;
+	var versionText:FlxText;
 
 	override public function create()
 	{
-		Prefs.initialize();
 		http = new Http("https://raw.githubusercontent.com/VideoBotYT/Universe-Engine/refs/heads/main/versionList.txt");
 
 		FlxG.sound.playMusic(Paths.music("Universe Launcher Menu Music"), 0.7);
+		Prefs.initialize();
 
 		bg = new FlxSprite(0, 0).loadGraphic(Paths.image("bg"));
 		bg.screenCenter();
@@ -136,6 +138,13 @@ class PlayState extends FlxState
 		downloadText.y = FlxG.height - (downloadText.height + 5);
 		add(downloadText);
 
+		versionText = new FlxText(0, 0, FlxG.width * 0.5, 'UE Launcher V${Constants.VERSION}', 15);
+		versionText.borderStyle = OUTLINE;
+		versionText.borderColor = 0xFF000000;
+		versionText.borderSize = 3;
+		versionText.y = FlxG.height - (versionText.height + 5);
+		add(versionText);
+
 		#if sys
 		directoryText = new FlxText(0, 0, versionFolder.width - 100, 'Current Directory:\n$versionsFolderPath', 10);
 		#else
@@ -172,6 +181,14 @@ class PlayState extends FlxState
 				prepareInstall(startGame);
 				FlxG.sound.play(Paths.sound("confirm"));
 				#end
+			}
+		}
+		if (pointerOverlaps(optionsButton))
+		{
+			optionsButton.alpha = 1;
+			if (generalPressed)
+			{
+				openSubState(new substates.pages.MainPage());
 			}
 		}
 		if (pointerOverlaps(versionFolder))
@@ -248,7 +265,7 @@ class PlayState extends FlxState
 			online_url = "https://github.com/VideoBotYT/Universe-Engine/releases/download/0.1.0/Universe.Engine.0.1.0.zip";
 		// trace("download url: " + online_url);
 
-		if (!FileSystem.exists(versionsFolderPath + version.selectedLabel + "/"))
+		if (!FileSystem.exists(versionsFolderPath + '/' /*Stupid idiot forgot this in the main branch.*/ + version.selectedLabel + "/"))
 		{
 			trace("version folder not found, creating the directory...");
 			FileSystem.createDirectory(versionsFolderPath + '/' + version.selectedLabel + "/");
