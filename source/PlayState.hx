@@ -36,7 +36,7 @@ class PlayState extends FlxState
 
 	var playButton:FlxSprite;
 	var version:FlxUIDropDownMenuCustom;
-	var credits:FlxSprite;
+	var credice:FlxText; // Haha funny reference!
 	var optionsButton:FlxSprite;
 	var versionFolder:FlxSprite;
 
@@ -86,18 +86,20 @@ class PlayState extends FlxState
 		playButton.scale.set(0.8, 0.8);
 		add(playButton);
 
-		optionsButton = new FlxSprite(playButton.x - 10, playButton.y + 100, Paths.image("optionsButton"));
+		optionsButton = new FlxSprite(playButton.x, playButton.y + 100, Paths.image("optionsButton"));
 		optionsButton.scale.set(0.8, 0.8);
 		optionsButton.alpha = 0.6;
 		add(optionsButton);
 
-		versionFolder = new FlxSprite(playButton.x - 10, playButton.y + 200, Paths.image("versionFolder"));
+		versionFolder = new FlxSprite(playButton.x, playButton.y + 200, Paths.image("versionFolder"));
 		versionFolder.scale.set(0.8, 0.8);
 		versionFolder.alpha = 0.6;
 		add(versionFolder);
 
-		credits = new FlxSprite(0, 0).loadGraphic(Paths.image("credits"));
-		add(credits);
+		credice = new FlxText(5, 10, FlxG.width, 'Videobot\nMain Coder of the launcher\n\nuwenalil\nMain Artist of the launcher\n\nChar\nPR\'s/Bugfixes', 15);
+		credice.setFormat(Paths.font('gaposiss.ttf'), 20, 0xFFFFFFFF, LEFT, OUTLINE, 0xFF000000);
+		credice.borderSize = 4;
+		add(credice);
 
 		version = new FlxUIDropDownMenuCustom(0, 0, FlxUIDropDownMenuCustom.makeStrIdLabelArray(["Loading..."], true));
 		version.screenCenter();
